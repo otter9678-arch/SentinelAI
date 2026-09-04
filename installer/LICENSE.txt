@@ -1,0 +1,50 @@
+SENTINELAI + JARVIS — End User License Agreement
+================================================
+
+Version: 0.1.0-beta
+Date: 2026-09-04
+Author: otter9678-arch
+
+By installing or using this software, you agree to the following terms.
+
+1. WHAT THIS SOFTWARE IS
+   A personal AI assistant with built-in security features, including
+   file scanning, behavioral monitoring, gaming mode, smart-home
+   integration, and voice/vision interaction. It runs locally and uses
+   a local AI model (Ollama) for analysis.
+
+2. WHAT THIS SOFTWARE IS NOT
+   - It is NOT certified antivirus software. It does not replace
+     Windows Defender or any certified AV product.
+   - It is NOT guaranteed to detect or block any specific threat.
+   - It is NOT a substitute for safe computing practices.
+   - It is provided "AS IS" with no warranty of any kind.
+
+3. PRIVACY
+   - All scanning, analysis, and AI inference happens locally on your PC.
+   - No file contents, images, or personal data are uploaded to any server.
+   - The only outbound network requests are: optional weather lookups
+     (Open-Meteo), update checks (GitHub), and web searches you explicitly
+     request (DuckDuckGo).
+   - Logs and knowledge files stay on your machine in %LOCALAPPDATA%.
+
+4. LIMITATION OF LIABILITY
+   The author is not liable for any damages, data loss, missed threats,
+   or productivity loss caused by using this software. Use at your own
+   risk. If this clause is unenforceable in your jurisdiction, the total
+   liability is limited to the amount you paid (which, in beta, is zero).
+
+5. TERMINATION
+   You may uninstall at any time. The author may stop providing updates
+   at any time.
+
+6. THIRD-PARTY COMPONENTS
+   - Ollama and its models are subject to their own licenses (MIT /
+     model-specific). See https://ollama.com
+   - .NET Runtime: subject to Microsoft's license.
+   - Whisper.cpp (optional): MIT license.
+
+7. CONTACT
+   GitHub: https://github.com/otter9678-arch
+
+By clicking "I Agree" during installation, you accept these terms.
