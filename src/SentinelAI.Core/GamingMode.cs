@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,13 +19,45 @@ namespace SentinelAI.Core
         private static string _currentGame = "";
         private static readonly object _lock = new object();
 
-        // Known game executables (extensible). Matched by lowercase process name.
-        private static readonly string[] KnownGames =
+        // Known game executables (curated list — update as needed).
+        // Matched by lowercase process name (no .exe extension).
+        private static readonly HashSet<string> KnownGames = new(StringComparer.OrdinalIgnoreCase)
         {
-            "destiny2", "halo5", "haloinfinite", "cod", "mwii", "battlefield",
-            "fortnite", "apex", "valoralnt", "valorant", "overwatch", "eldenring",
-            "cyberpunk", "witcher3", "forza", "gta5", "rdr2", "minecraft",
-            "starfield", "diablo", "wow", "palworld", "helldivers", "smite"
+            // Bungie
+            "destiny2",
+            // Halo
+            "halo5", "haloinfinite",
+            // Call of Duty
+            "cod", "cod22-cod.exe", "cod24-cod", "mwii", "mwiii",
+            // Battlefield / EA
+            "battlefield", "bf2042", "bf6",
+            // shooters
+            "fortnite", "fortniteclient-win64-shipping", "apex", "apexlegends",
+            "valoralnt", "valorant", "overwatch", "overwatch2",
+            "csgo", "cs2", "cs2.exe",
+            "pubg", "pubg-tslgame", "rainbowsix", "r6s",
+            // RPG / open world
+            "eldenring", "cyberpunk", "witcher3", "starfield",
+            "fallout4", "fallout76", "skyrim", "skse64",
+            // Rockstar
+            "gta5", "gtav", "rdr2", "reddeadredemption2",
+            // racing
+            "forza", "forzahorizon5", "fh5", "forzamotorsport",
+            // others
+            "minecraft", "minecraftserver", "palworld", "helldivers",
+            "helldivers2", "smite", "diablo", "diablo4", "wow", "wowclassic",
+            "sekiro", "liesofp", " lords of the fallen",
+            "baldursgate3", "bg3_dx11", "monsterhunterworld",
+            "monsterhunterrise", "mhwilds", "nioh2", "nioh",
+            "satisfactory", "valheim", "rust", "dota2", "league of legends",
+            "leagueclient", "pathofexile", "pathofexile_x64",
+            "terraria", "starbound", "subnautica", "no mans sky",
+            "nomanssky", "escapefromtarkov", "eft",
+            "warframe", "x64dbg", "war thunder", "wt",
+            "grounded", "sons of the forest", "sonsoftheforest",
+            "the forest", "theforest", "greenhell", "raft",
+            "strandeddeep", "7daystodie", "7days", "dayz",
+            "fallguys", "amongus", "amogus", "goose goose duck",
         };
 
         public static bool IsGaming
@@ -58,12 +91,24 @@ namespace SentinelAI.Core
                 string found = null;
                 foreach (var proc in Process.GetProcesses())
                 {
-                    string name = proc.ProcessName.ToLowerInvariant();
-                    // Direct match on known games
+                    string name = proc.ProcessName;
+                    // Exact match on known game list
                     if (KnownGames.Contains(name)) { found = name; break; }
-                    // Or any fullscreen process using high GPU (heuristic — cheap)
-                    // (Skipped for now: fullscreen detection via user32 is expensive;
-                    //  we'd rather err on the side of quiet than slow.)
+                    // Fuzzy fallback: any process whose name contains a known game
+                    // (catches renamed exe's like "eldenring_launcher" or "destiny2 -beta")
+                    foreach (var g in KnownGames)
+                    {
+                        if (name.StartsWith(g, StringComparison.OrdinalIgnoreCase) ||
+                            name.IndexOf(g, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            found = g; // normalize to known game name
+                            break;
+                        }
+                    }
+                    if (found != null) break;
+                    // Heuristic: any process using > 25% GPU for extended time is
+                    // likely a game. Requires PerformanceCounter per-process which
+                    // is expensive — skipped for now to keep the sweep cheap.
                 }
 
                 lock (_lock)

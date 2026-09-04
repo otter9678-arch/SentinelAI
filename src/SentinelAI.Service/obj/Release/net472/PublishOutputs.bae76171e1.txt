@@ -1,0 +1,17 @@
+D:\Projects\SentinelAI\installer\publish\SentinelAI.Service.exe
+D:\Projects\SentinelAI\installer\publish\SentinelAI.Service.exe.config
+D:\Projects\SentinelAI\installer\publish\SentinelAI.Service.pdb
+D:\Projects\SentinelAI\installer\publish\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projects\SentinelAI\installer\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Projects\SentinelAI\installer\publish\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Projects\SentinelAI\installer\publish\System.Buffers.dll
+D:\Projects\SentinelAI\installer\publish\System.Memory.dll
+D:\Projects\SentinelAI\installer\publish\System.Numerics.Vectors.dll
+D:\Projects\SentinelAI\installer\publish\System.Runtime.CompilerServices.Unsafe.dll
+D:\Projects\SentinelAI\installer\publish\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\SentinelAI\installer\publish\System.Text.Encodings.Web.dll
+D:\Projects\SentinelAI\installer\publish\System.Text.Json.dll
+D:\Projects\SentinelAI\installer\publish\System.Threading.Tasks.Extensions.dll
+D:\Projects\SentinelAI\installer\publish\System.ValueTuple.dll
+D:\Projects\SentinelAI\installer\publish\SentinelAI.Core.dll
+D:\Projects\SentinelAI\installer\publish\SentinelAI.Core.pdb
